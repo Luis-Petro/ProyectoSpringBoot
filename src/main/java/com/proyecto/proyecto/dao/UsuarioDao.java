@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface UsuarioDao {
     List<Usuario> getUsuarios();
+
+    void delete(Long id);
+
+    void regitrar(Usuario usuario);
 }

@@ -19,4 +19,15 @@ public class UsuarioDaoImplement implements UsuarioDao{
         String query = "FROM Usuario";
         return entityManager.createQuery(query).getResultList();
     }
+
+    @Override
+    public void delete(Long id) {
+        Usuario usuario = entityManager.find(Usuario.class, id);
+        entityManager.remove(usuario);
+    }
+
+    @Override
+    public void regitrar(Usuario usuario) {
+        entityManager.merge(usuario);
+    }
 }
