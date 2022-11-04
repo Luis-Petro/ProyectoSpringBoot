@@ -23,10 +23,12 @@ async function registerUsuarios(){
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(datos);
+    body: JSON.stringify(datos)
 
   });
-  const usuarios = await rawResponse.json();
-
+  alert("La cuenta fue creada con exito!");
+  window.location.href = 'usuarios.html';
 }
+
+
 
