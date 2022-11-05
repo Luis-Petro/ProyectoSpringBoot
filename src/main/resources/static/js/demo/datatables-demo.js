@@ -9,11 +9,7 @@ async function cargarUsuarios(){
 
   const rawResponse = await fetch('api/usuarios', {
     method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-
+    headers:  getHeaders()
   });
   const usuarios = await rawResponse.json();
      let ListadoHtml = '';
@@ -31,17 +27,21 @@ async function cargarUsuarios(){
   document.querySelector('#dataTable tbody').outerHTML = ListadoHtml;
 }
 
+function getHeaders(){
+  return  {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+               'Authorization': localStorage.token
+             };
+}
+
 async function deleteUser(id) {
 if(!confirm("¿Desea eliminar este usuario?")){
 return;
 }
 const rawResponse = await fetch('api/delete/'+id, {
     method: 'DELETE',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-
+    headers: getHeaders()
   });
   location.reload();
 }

@@ -3,6 +3,7 @@ package com.proyecto.proyecto.controllers;
 import ch.qos.logback.core.joran.util.beans.BeanDescriptionFactory;
 import com.proyecto.proyecto.dao.UsuarioDao;
 import com.proyecto.proyecto.models.Usuario;
+import com.proyecto.proyecto.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioDao usuarioDao;
+    @Autowired
+    private JWTUtil jwtUtil;
 
 
     @RequestMapping(value = "api/usuario/{id}", method = RequestMethod.GET )
@@ -39,7 +42,12 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "api/usuarios", method = RequestMethod.GET )
-    public List<Usuario> getUsuarios(){
+    public List<Usuario> getUsuarios(@RequestHeader(value="Authorization")String token){
+        String usuarioId = jwtUtil.getKey(token);
+        if(usuarioId == null){
+            return  new ArrayList<>();
+        }
+
         return  usuarioDao.getUsuarios();
     }
 
