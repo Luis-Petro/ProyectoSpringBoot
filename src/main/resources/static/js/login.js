@@ -20,14 +20,13 @@ async function iniciarSession(){
   });
 
   const response = await rawResponse.text();
-  if (response == "Ok"){
-  window.location.href = 'usuarios.html';
-  }else{
-  alert("La credenciales son incorrectas");
-  }
-
- //alert("La cuenta fue creada con exito!");
- // window.location.href = 'usuarios.html';
+    if (response != "FAIL"){
+    localStorage.token = response;
+    localStorage.email = datos.email;
+    window.location.href = 'usuarios.html'
+    }else{
+    alert("La credenciales son incorrectas");
+    }
 }
 
 
